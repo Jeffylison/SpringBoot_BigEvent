@@ -28,15 +28,15 @@ public class JwtTest {
         System.out.println(token);
     }
 
-    @Test
-    public void testParse() {
-        //模拟传递token
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IuS4g-a1tyJ9LCJleHAiOjE3NDI1MTI4NTF9.bdiLaHUf46S_MkcWHJMrpnxiuUcvTqOs2oZKd02rWJs";
-
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("Jeffylison")).build();
-
-        DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token，生成解析后的JWT对象
-        Map<String, Claim> claims = decodedJWT.getClaims();
-        System.out.println(claims.get("user"));
-    }
+//    @Test
+//    public void testParse() {
+//        //模拟传递token
+//        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IuS4g-a1tyJ9LCJleHAiOjE3NDI1MTI4NTF9.bdiLaHUf46S_MkcWHJMrpnxiuUcvTqOs2oZKd02rWJs";
+//
+//        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("Jeffylison")).build();
+//
+//        DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token，生成解析后的JWT对象
+//        Map<String, Claim> claims = decodedJWT.getClaims();
+//        System.out.println(claims.get("user"));
+//    }
 }

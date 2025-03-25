@@ -5,6 +5,9 @@ import com.nefu.utils.JwtUtil;
 import com.nefu.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,6 +15,12 @@ import java.util.Map;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+
+    private final StringRedisTemplate stringRedisTemplate;
+
+    public LoginInterceptor(StringRedisTemplate stringRedisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,6 +32,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //验证token
         try {
+            //从redis获取token
+            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            String redisToken = operations.get(token);
+            if((redisToken == null) || (redisToken.length() == 0)){
+                //token失效
+                throw new RuntimeException();
+            }
+
             Map<String ,Object> claims = JwtUtil.verifyToken(token);
 //            System.out.println("claims:" + claims);
             //业务数据存储到线程池中
