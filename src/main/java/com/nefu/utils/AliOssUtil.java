@@ -1,4 +1,4 @@
-package com.nefu;
+package com.nefu.utils;
 
 import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.*;
@@ -15,8 +15,7 @@ public class AliOssUtil {
         String endpoint = "https://oss-cn-beijing.aliyuncs.com";
         // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET。
         EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
-//        String ACCESS_KEY_ID = "LTAI5tJ3comvhFMGLBeQ5z9h";
-//        String ACCESS_KEY_SECRET = "yIK7Jt8vv2nKqnIKU0isyxOfTXe6IV";
+
         // 填写Bucket名称，例如examplebucket。
         String bucketName = "springbootbigevent";
         // 填写Object完整路径，完整路径中不能包含Bucket名称，例如exampledir/exampleobject.txt。
