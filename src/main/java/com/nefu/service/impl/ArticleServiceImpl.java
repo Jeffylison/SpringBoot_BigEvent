@@ -6,6 +6,7 @@ import com.nefu.mapper.ArticleMapper;
 import com.nefu.pojo.Article;
 import com.nefu.pojo.PageBean;
 import com.nefu.service.ArticleService;
+import com.nefu.service.ThreadService;
 import com.nefu.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private ThreadService threadService;
 
     @Override
     public void add(Article article) {
@@ -54,6 +57,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findById(Integer id) {
         Article a = articleMapper.findById(id);
+
+        //增加文章浏览次数
+        threadService.updateArticleViewCount(articleMapper, a);
+
         return a;
     }
 
